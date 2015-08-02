@@ -1,38 +1,57 @@
 package educa.educastory;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
 
-public class MainActivity extends ActionBarActivity  implements TextToSpeech.OnInitListener{
+public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
     protected static TextToSpeech tts;
 
     String questionStr = "";
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         questionStr = getString(R.string.Question1);
         Log.e("questionStr", questionStr);
+        TextView questionText = (TextView) findViewById(R.id.QuestionText);
 
-        //ボタンを押した時�処�
+
+        switch (count) {
+            case 1:
+                Log.e("シナリオ", "1");
+                break;
+            case 2:
+                Log.e("シナリオ", "2");
+                questionText.setText("シナリオ2の質問");
+                break;
+            case 3:
+                Log.e("シナリオ", "3");
+                break;
+            case 4:
+                Log.e("シナリオ", "4");
+                break;
+        }//end switch
+
+        //ボタンを押した時の処理
         Button answerBtn1 = (Button) findViewById(R.id.AnswerButton1);
         answerBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +62,7 @@ public class MainActivity extends ActionBarActivity  implements TextToSpeech.OnI
             }
         });
 
-        //ボタンを押した時�処�
+        //ボタンを押した時の処理
         Button answerBtn2 = (Button) findViewById(R.id.AnswerButton2);
         answerBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +70,7 @@ public class MainActivity extends ActionBarActivity  implements TextToSpeech.OnI
                 Toast.makeText(MainActivity.this, "AnswerButton2", Toast.LENGTH_SHORT).show();
                 Intent reactionIntent = new Intent(MainActivity.this, ReactionActivity.class);
                 startActivity(reactionIntent);
+                finish();
             }
         });
     }//end onCreate
@@ -95,17 +115,16 @@ public class MainActivity extends ActionBarActivity  implements TextToSpeech.OnI
         } else {
             Log.d("", "Error Init");
         }
-        if(!flg){
+        if (!flg) {
             CheckTTSDialogFragment newFragment = new CheckTTSDialogFragment();
             newFragment.show(getSupportFragmentManager(), "chktts");
         }
     }
 
-    private void speakText(String text){
+    private void speakText(String text) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
-        }
-        else {
+        } else {
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         }
     }

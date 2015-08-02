@@ -22,26 +22,35 @@ public class MainActivity extends ActionBarActivity  implements TextToSpeech.OnI
 
     protected static TextToSpeech tts;
 
-
+    String questionStr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        questionStr = getString(R.string.Question1);
+        Log.e("questionStr", questionStr);
+
+        //ボタンを押した時�処�
         Button answerBtn1 = (Button) findViewById(R.id.AnswerButton1);
         answerBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "AnswerButton1", Toast.LENGTH_SHORT).show();
+                Intent reactionIntent = new Intent(MainActivity.this, ReactionActivity.class);
+                startActivity(reactionIntent);
             }
         });
 
+        //ボタンを押した時�処�
         Button answerBtn2 = (Button) findViewById(R.id.AnswerButton2);
         answerBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "AnswerButton2", Toast.LENGTH_SHORT).show();
+                Intent reactionIntent = new Intent(MainActivity.this, ReactionActivity.class);
+                startActivity(reactionIntent);
             }
         });
     }//end onCreate

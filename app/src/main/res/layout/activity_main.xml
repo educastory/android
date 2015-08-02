@@ -27,23 +27,31 @@
 
         <TextView
             android:id="@+id/QuestionText"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="#44FF0000"
             android:text="@string/Question1" />
 
-        <Button
+        <TextView
             android:id="@+id/AnswerButton1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="8dp"
             android:layout_weight="1"
+            android:background="#44000000"
+            android:clickable="true"
             android:text="@string/AnswerTop1" />
 
-        <Button
+        <TextView
             android:id="@+id/AnswerButton2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="8dp"
             android:layout_weight="1"
+            android:background="#44000000"
+            android:clickable="true"
             android:text="@string/AnswerBottom1" />
     </LinearLayout>
 

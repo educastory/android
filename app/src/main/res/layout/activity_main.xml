@@ -26,14 +26,14 @@
             android:text="@string/Question" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/AnswerButton1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="test1" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/AnswerButton2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

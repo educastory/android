@@ -1,9 +1,12 @@
 package educa.educastory;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class ReactionActivity extends ActionBarActivity {
 
@@ -11,6 +14,15 @@ public class ReactionActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reaction);
+
+        Button nextBtn = (Button) findViewById(R.id.ReactionButton);
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(ReactionActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
     }
 
     @Override

@@ -3,18 +3,44 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    //一画面目
-    <string name="Question1">ここに英語の質問を挿入</string>
-    <string name="AnswerTop1">ここに質問の答え1</string>
-    <string name="AnswerBottom1">ここに質問の答え2</string>
-    //二画面目
 
+    // 画面1
+    <string name="Question1">Hi, how are doing?? I guess you don’t know what day it is today…..
+    </string>
+    <string name="AnswerTop1">Hi, Im fine. Of course I know!!
+        It is your birthday, right?? Happy birthday!!
+    </string>
+    <string name="AnswerBottom1">Sorry, I don’t know anything… What day is it today??
+    </string>
 
+    // リアクション1 (GOOD)
+    <string name="ReactionText1Good">Yeah!! Thanks, Im so happy!!</string>
+    // リアクション1 (BAD)
+    <string name="ReactionText1Bad">Heeeeey It’s my birth day!! Don’t forget it!!</string>
 
+    // 画面2
+    <string name="Question2">Anyway, where are we
+        going today??
+    </string>
+    <string name="AnswerTop2">
+        Let’s have a cup of coffee!!
+    </string>
+    <string name="AnswerBottom2">
+        Let’s play catch!!
+    </string>
+
+    // リアクション2 (GOOD)
+    <string name="ReactionText2Good">
+        Hey!! I’m so fun!!
+    </string>
+    // リアクション2 (BAD)
+    <string name="ReactionText2Bad">
+        Actually, I don’t like coffee very much….
+    </string>
+
+    // 画面2
     <string name="title_activity_reaction">ReactionActivity</string>
-    <string name="Reaction_text">ここにリアクションを挿入</string>
+
     <string name="reaction_next">NEXT</string>
-
-
 
 </resources>

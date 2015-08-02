@@ -7,20 +7,40 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
     String questionStr = "";
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         questionStr = getString(R.string.Question1);
         Log.e("questionStr", questionStr);
+        TextView questionText = (TextView) findViewById(R.id.QuestionText);
+
+
+        switch (count) {
+            case 1:
+                Log.e("シナリオ","1");
+                break;
+            case 2:
+                Log.e("シナリオ","2");
+                questionText.setText("シナリオ2の質問");
+                break;
+            case 3:
+                Log.e("シナリオ","3");
+                break;
+            case 4:
+                Log.e("シナリオ","4");
+                break;
+        }//end switch
 
         //ボタンを押した時の処理
         Button answerBtn1 = (Button) findViewById(R.id.AnswerButton1);
@@ -30,6 +50,8 @@ public class MainActivity extends ActionBarActivity {
                 Toast.makeText(MainActivity.this, "AnswerButton1", Toast.LENGTH_SHORT).show();
                 Intent reactionIntent = new Intent(MainActivity.this, ReactionActivity.class);
                 startActivity(reactionIntent);
+                //startActivityForResult(reactionIntent, count);
+                finish();
             }
         });
 
@@ -41,6 +63,7 @@ public class MainActivity extends ActionBarActivity {
                 Toast.makeText(MainActivity.this, "AnswerButton2", Toast.LENGTH_SHORT).show();
                 Intent reactionIntent = new Intent(MainActivity.this, ReactionActivity.class);
                 startActivity(reactionIntent);
+                finish();
             }
         });
     }//end onCreate

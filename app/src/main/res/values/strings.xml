@@ -3,18 +3,19 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    //一画面目
+
+    // 画面1
     <string name="Question1">ここに英語の質問を挿入</string>
     <string name="AnswerTop1">ここに質問の答え1</string>
     <string name="AnswerBottom1">ここに質問の答え2</string>
-    //二画面目
 
+    // リアクション1
+    <string name="Reaction_text1">ここにリアクションを挿入</string>
 
+    // 画面2
 
     <string name="title_activity_reaction">ReactionActivity</string>
-    <string name="Reaction_text">ここにリアクションを挿入</string>
+
     <string name="reaction_next">NEXT</string>
-
-
 
 </resources>

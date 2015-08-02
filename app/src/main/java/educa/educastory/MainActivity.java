@@ -46,8 +46,13 @@ public class MainActivity extends ActionBarActivity  implements TextToSpeech.OnI
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onInit(int status) {
+//        initTts(status);
+    }
+
+    private void initTts(int status) {
         boolean flg = false;
         if (TextToSpeech.SUCCESS == status) {
             Locale locale = Locale.ENGLISH;
@@ -65,6 +70,7 @@ public class MainActivity extends ActionBarActivity  implements TextToSpeech.OnI
             newFragment.show(getSupportFragmentManager(), "chktts");
         }
     }
+
     private void speakText(String text){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);

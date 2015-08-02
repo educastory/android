@@ -10,49 +10,22 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="0dp"
-        android:adjustViewBounds="false"
-        android:scaleType="center"
-        android:src="@drawable/bg" />
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/text_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/QuestionText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="#44FF0000"
-            android:text="@string/Question1" />
-
-        <TextView
-            android:id="@+id/AnswerButton1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="#44000000"
-            android:clickable="true"
-            android:text="@string/AnswerTop1" />
-
-        <TextView
-            android:id="@+id/AnswerButton2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="#44000000"
-            android:clickable="true"
-            android:text="@string/AnswerBottom1" />
-    </LinearLayout>
-
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#CC000000"
+        android:lines="5"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp" />
 </RelativeLayout>

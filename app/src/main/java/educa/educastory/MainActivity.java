@@ -1,152 +1,61 @@
 package educa.educastory;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.Locale;
-
-public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
-    private static final int RC_REACTION_1 = 1001;
-    private static final int RC_REACTION_2 = 1002;
+    private static final String KEY_MODE = "MODE";
+    private static final String KEY_SCORE = "SCORE";
 
-    protected static TextToSpeech tts;
+    private int mMode;
+    private int mScore;
 
-    private String questionStr = "";
-    private int count;
+    private ImageView image;
+    private TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e("onCreate","onCreate");
-        count = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        questionStr = getString(R.string.Question1);
-        Log.e("questionStr", questionStr);
-        TextView questionText = (TextView) findViewById(R.id.QuestionText);
+        image = (ImageView) findViewById(R.id.image_view);
+        text = (TextView) findViewById(R.id.text_view);
+        setTitle(R.string.chapter);
 
+        text.setOnClickListener(new TextClickListener());
 
-        switch (count) {
-            case 1:
-                Log.e("シナリオ", "1");
-                break;
-            case 2:
-                Log.e("シナリオ", "2");
-                questionText.setText("シナリオ2の質問");
-                break;
-            case 3:
-                Log.e("シナリオ", "3");
-                break;
-            case 4:
-                Log.e("シナリオ", "4");
-                break;
-        }//end switch
-
-        //ボタンを押した時の処理
-        TextView answerBtn1 = (TextView) findViewById(R.id.AnswerButton1);
-        answerBtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "AnswerButton1", Toast.LENGTH_SHORT).show();
-                Intent reactionIntent = new Intent(MainActivity.this, ReactionActivity.class);
-                reactionIntent.putExtra("count", count);
-                //startActivity(reactionIntent);
-                startActivityForResult(reactionIntent, RC_REACTION_1);
-            }
-        });
-
-        //ボタンを押した時の処理
-        TextView answerBtn2 = (TextView) findViewById(R.id.AnswerButton2);
-        answerBtn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "AnswerButton2", Toast.LENGTH_SHORT).show();
-                Intent reactionIntent = new Intent(MainActivity.this, ReactionActivity.class);
-                startActivityForResult(reactionIntent, RC_REACTION_2);
-            }
-        });
-    }//end onCreate
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCount, Intent data){
-        super.onActivityResult(count, resultCount, data);
-        Bundle bundle = data.getExtras();
-        count++;
-        switch (requestCode){
-            case RC_REACTION_1:
-                Log.i(TAG, "from " + RC_REACTION_1);
-                break;
-            case RC_REACTION_2:
-                Log.i(TAG, "from " + RC_REACTION_2);
-                break;
-        }
-        Log.e("result", "resultCount:" + count);
-    }
-
-    @Override
-    public void onInit(int status) {
-//        initTts(status);
-    }
-
-    private void initTts(int status) {
-        boolean flg = false;
-        if (TextToSpeech.SUCCESS == status) {
-            Locale locale = Locale.ENGLISH;
-            if (tts.isLanguageAvailable(locale) >= TextToSpeech.LANG_AVAILABLE) {
-                tts.setLanguage(locale);
-                flg = true;
-            } else {
-                Log.d("", "Error SetLocale");
-            }
+        if (savedInstanceState == null) {
+            mMode = 0;
+            mScore = 0;
         } else {
-            Log.d("", "Error Init");
+            mMode = savedInstanceState.getInt(KEY_MODE, 0);
+            mScore = savedInstanceState.getInt(KEY_SCORE, 0);
         }
-        if (!flg) {
-            CheckTTSDialogFragment newFragment = new CheckTTSDialogFragment();
-            newFragment.show(getSupportFragmentManager(), "chktts");
+
+        changeMode();
+    }
+
+    private void changeMode() {
+        switch (mMode) {
+            case 0:
+                image.setImageResource(R.mipmap.scenario1);
+                text.setText(getString(R.string.question1));
+                break;
+            default:
+                finish();
+                break;
         }
     }
 
-    private void speakText(String text) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
-        } else {
-            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-        }
-    }
+    private class TextClickListener implements View.OnClickListener {
 
-    public static class CheckTTSDialogFragment extends DialogFragment {
         @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Please download English voice data.")
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent installIntent = new Intent();
-                            installIntent.setAction(
-                                    TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                            startActivity(installIntent);
-                        }
-                    })
-                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-
-                        }
-                    });
-            return builder.create();
+        public void onClick(View v) {
+            mMode++;
+            changeMode();
         }
     }
 }

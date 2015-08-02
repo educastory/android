@@ -1,57 +1,56 @@
 ﻿<resources>
     <string name="app_name">EducaStory</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="chapter">Lesson1: You visit Japan</string>
 
-    <string name="FirstNarration">
+    <string name="first_narration">
         You visit Japan. You have a friend named Sakura.
         She gave a smartphone to you. You keep in touch with her on facebook and promise to meet her.
         She likes sports especially catch and she often posts sports pictures. And you know today is her birth day!!
     </string>
 
     <!-- 画面1 -->
-    <string name="Question1">
+    <string name="question1">
         Hi, how are you doing??
         Welcome to Japan!!
         I guess you don\'t know what day it is today...
     </string>
-    <string name="AnswerTop1">Hi, I\'m fine.
+    <string name="answer1_1">Hi, I\'m fine.
         Of course I know!!
         It\'s your birthday, right??
         Happy birthday!!
     </string>
-    <string name="AnswerBottom1">
+    <string name="answer1_2">
         Sorry, I don\'t know anything… What day is it today??
     </string>
 
     <!-- リアクション1 (GOOD) -->
-    <string name="ReactionText1Good">
+    <string name="reaction1_1">
         Yeah!! Why do you know that?! But thanks, I\'m so happy!!
     </string>
 
     <!-- リアクション1 (BAD) -->
-    <string name="ReactionText1Bad">
+    <string name="reaction1_2">
         Heeeeey It\'s my birth day!! Please remember!!
     </string>
 
     <!-- 画面2 -->
-    <string name="Question2">
+    <string name="question2">
         Anyway, where are we going today??
     </string>
-    <string name="AnswerTop2">
+    <string name="answer2_1">
         Let\'s have a cup of coffee!!
     </string>
-    <string name="AnswerBottom2">
+    <string name="answer2_2">
         Let\'s play catch!!
     </string>
 
     <!-- リアクション2 (GOOD) -->
-    <string name="ReactionText2Good">
+    <string name="reaction2_1">
         Hey!! It\'s so fun!! I like sports especially catch!!
     </string>
     <!-- リアクション2 (BAD) -->
-    <string name="ReactionText2Bad">
+    <string name="reaction2_2">
         Actually, I don\'t like coffee very much…. I wanted to exercise…
     </string>
 
@@ -59,16 +58,24 @@
     <string name="reaction_next">NEXT</string>
     <string name="Reaction_text">ここにリアクションを挿入</string>
 
-    <string name="LastMessage">
+    <string name="last_message">
         Thanks for today!! I really had a good time!! See you again!!
     </string>
+
+    <string name="narration1">
+        She likes you very much!!
+        You should visit her again!!
+    </string>
     
-    <string name="LastNarrationBad">
+    <string name="narration2">
         She is happy but don\'t forget her birth day next time!!
-        or
+    </string>
+
+    <string name="narration3">
         She is happy but you should ask her to play catch next time as she doesn\'t like coffee very much!!
     </string>
-    <string name="LastNarrationWorst">
+
+    <string name="narration4">
         She is not so happy because you forgot her birth day!!
         And you should ask her to play catch as she doesn\'t like coffee very much!!
     </string>

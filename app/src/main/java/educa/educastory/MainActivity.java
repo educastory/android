@@ -20,14 +20,19 @@ import android.widget.Toast;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
+    private static final String TAG = MainActivity.class.getName();
+    private static final int RC_REACTION_1 = 1001;
+    private static final int RC_REACTION_2 = 1002;
 
     protected static TextToSpeech tts;
 
-    String questionStr = "";
-    int count = 0;
+    private String questionStr = "";
+    private int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e("onCreate","onCreate");
+        count = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         questionStr = getString(R.string.Question1);
@@ -58,7 +63,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "AnswerButton1", Toast.LENGTH_SHORT).show();
                 Intent reactionIntent = new Intent(MainActivity.this, ReactionActivity.class);
-                startActivity(reactionIntent);
+                reactionIntent.putExtra("count", count);
+                //startActivity(reactionIntent);
+                startActivityForResult(reactionIntent, RC_REACTION_1);
             }
         });
 
@@ -69,11 +76,27 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "AnswerButton2", Toast.LENGTH_SHORT).show();
                 Intent reactionIntent = new Intent(MainActivity.this, ReactionActivity.class);
-                startActivity(reactionIntent);
-                finish();
+                startActivityForResult(reactionIntent, RC_REACTION_2);
             }
         });
     }//end onCreate
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCount, Intent data){
+        super.onActivityResult(count, resultCount, data);
+        Bundle bundle = data.getExtras();
+        count++;
+        switch (requestCode){
+            case RC_REACTION_1:
+                Log.i(TAG, "from " + RC_REACTION_1);
+                break;
+            case RC_REACTION_2:
+                Log.i(TAG, "from " + RC_REACTION_2);
+                break;
+        }
+        Log.e("result", "resultCount:" + count);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

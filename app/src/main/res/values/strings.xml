@@ -1,26 +1,43 @@
-<resources>
+﻿<resources>
     <string name="app_name">EducaStory</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="FirstNarration">
+        You visit Japan. You have a friend named Sakura.
+        She gave a smartphone to you. You keep in touch with her on facebook and promise to meet her.
+        She likes sports especially catch and she often posts sports pictures. And you know today is her birth day!!
+    </string>
+
     <!-- 画面1 -->
-    <string name="Question1">Hi, how are doing?? I guess you don’t know what day it is today…..
+    <string name="Question1">
+        Hi, how are you doing??
+        Welcome to Japan!!
+        I guess you don't know what day it is today…..
     </string>
-    <string name="AnswerTop1">Hi, Im fine. Of course I know!!
-        It is your birthday, right?? Happy birthday!!
+    <string name="AnswerTop1">Hi, I’m fine.
+        Of course I know!!
+        It’s your birthday, right??
+        Happy birthday!!
     </string>
-    <string name="AnswerBottom1">Sorry, I don’t know anything… What day is it today??
+    <string name="AnswerBottom1">
+        Sorry, I don’t know anything… What day is it today??
     </string>
 
     <!-- リアクション1 (GOOD) -->
-    <string name="ReactionText1Good">Yeah!! Thanks, Im so happy!!</string>
+    <string name="ReactionText1Good">
+        Yeah!! Why do you know that?! But thanks, I’m so happy!!
+    </string>
+
     <!-- リアクション1 (BAD) -->
-    <string name="ReactionText1Bad">Heeeeey It’s my birth day!! Don’t forget it!!</string>
+    <string name="ReactionText1Bad">
+        Heeeeey It’s my birth day!! Please remember!!
+    </string>
 
     <!-- 画面2 -->
-    <string name="Question2">Anyway, where are we
-        going today??
+    <string name="Question2">
+        Anyway, where are we going today??
     </string>
     <string name="AnswerTop2">
         Let’s have a cup of coffee!!
@@ -31,14 +48,28 @@
 
     <!-- リアクション2 (GOOD) -->
     <string name="ReactionText2Good">
-        Hey!! I’m so fun!!
+        Hey!! It’s so fun!! I like sports especially catch!!
     </string>
     <!-- リアクション2 (BAD) -->
     <string name="ReactionText2Bad">
-        Actually, I don’t like coffee very much….
+        Actually, I don’t like coffee very much…. I wanted to exercise…
     </string>
 
     <string name="title_activity_reaction">ReactionActivity</string>
     <string name="reaction_next">NEXT</string>
     <string name="Reaction_text">ここにリアクションを挿入</string>
+
+    <string name="LastMessage">
+        Thanks for today!! I really had a good time!! See you again!!
+    </string>
+    
+    <string name="LastNarrationBad">
+        She is happy but don’t forget her birth day next time!!
+        or
+        She is happy but you should ask her to play catch next time as she doesn’t like coffee very much!!
+    </string>
+    <string name="LastNarrationWorst">
+        She is not so happy because you forgot her birth day!!
+        And you should ask her to play catch as she doesn’t like coffee very much!!
+    </string>
 </resources>

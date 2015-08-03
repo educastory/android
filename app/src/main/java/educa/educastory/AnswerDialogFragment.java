@@ -20,8 +20,6 @@ public class AnswerDialogFragment extends DialogFragment {
 
     private AnswerDialogFragment self = this;
     private OnChoiceListener mListener;
-    private int mAnswer1;
-    private int mAnswer2;
 
     public interface OnChoiceListener {
         void onChoice(int answer);
@@ -44,20 +42,20 @@ public class AnswerDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
-        mAnswer1 = args.getInt(KEY_ANSWER1);
-        mAnswer2 = args.getInt(KEY_ANSWER2);
+        int answer1 = args.getInt(KEY_ANSWER1);
+        int answer2 = args.getInt(KEY_ANSWER2);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View content = inflater.inflate(R.layout.fragment_answer, null);
-        TextView answer1 = (TextView) content.findViewById(R.id.answer1_text);
-        TextView answer2 = (TextView) content.findViewById(R.id.answer2_text);
+        TextView answer1Text = (TextView) content.findViewById(R.id.answer1_text);
+        TextView answer2Text = (TextView) content.findViewById(R.id.answer2_text);
         builder.setView(content);
 
-        answer1.setText(mAnswer1);
-        answer1.setOnClickListener(new Answer1ClickListener());
-        answer2.setText(mAnswer2);
-        answer2.setOnClickListener(new Answer2ClickListener());
+        answer1Text.setText(answer1);
+        answer1Text.setOnClickListener(new Answer1ClickListener());
+        answer2Text.setText(answer2);
+        answer2Text.setOnClickListener(new Answer2ClickListener());
 
         this.setCancelable(false);
         return builder.create();

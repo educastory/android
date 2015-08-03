@@ -1,8 +1,8 @@
 package educa.educastory;
 
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
                 text.setText(getString(R.string.question1));
                 break;
             case 1:
-                DialogFragment dialog = AnswerDialogFragment.newInstance(R.string.answer1_1, R.string.answer1_2);
-                dialog.show(getSupportFragmentManager(), "question");
+                AnswerDialogFragment.newInstance(R.string.answer1_1, R.string.answer1_2)
+                        .show(getSupportFragmentManager(), "question");
                 break;
             case 2:
                 if (mAnswer == 1) {
@@ -59,6 +59,54 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
                     text.setText(getString(R.string.reaction1_2));
                 }
                 break;
+            case 3:
+                image.setImageResource(R.mipmap.question2);
+                text.setText(getString(R.string.question2));
+                break;
+            case 4:
+                AnswerDialogFragment.newInstance(R.string.answer2_1, R.string.answer2_2)
+                        .show(getSupportFragmentManager(), "question");
+                break;
+            case 5:
+                switch (mAnswer) {
+                    case 1:
+                        image.setImageResource(R.mipmap.reaction2_1);
+                        text.setText(getString(R.string.reaction2_1));
+                        break;
+                    default:
+                        image.setImageResource(R.mipmap.reaction2_2);
+                        text.setText(getString(R.string.reaction2_2));
+                        break;
+                }
+                break;
+            case 6:
+                image.setImageResource(R.mipmap.last_message);
+                text.setText(getString(R.string.last_message));
+                break;
+            case 7:
+                switch (mScore) {
+                    case 0:
+                        image.setImageResource(R.mipmap.narration_not_happy);
+                        text.setText(getString(R.string.narration1));
+                        break;
+                    case 1:
+                        image.setImageResource(R.mipmap.narration_happy);
+                        text.setText(getString(R.string.narration2));
+                        break;
+                    case 2:
+                        image.setImageResource(R.mipmap.narration_happy);
+                        text.setText(getString(R.string.narration3));
+                        break;
+                    case 3:
+                        image.setImageResource(R.mipmap.narration_so_happy);
+                        text.setText(getString(R.string.narration4));
+                        break;
+                    default:
+                        image.setImageResource(R.mipmap.reaction2_2);
+                        text.setText(getString(R.string.reaction2_2));
+                        break;
+                }
+                break;
             default:
                 finish();
                 break;
@@ -67,13 +115,18 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
 
     @Override
     public void onChoice(int answer) {
+        Log.d(TAG, "mode = " + mMode + ", answer = " + answer);
         switch (mMode) {
             case 1:
                 mScore += (answer == 1 ? 1 : 0);
-                mAnswer = answer;
-                mMode++;
-                nextMode();
+                break;
+            case 4:
+                mScore += (answer == 1 ? 0 : 2);
+                break;
         }
+        mAnswer = answer;
+        mMode++;
+        nextMode();
     }
 
     private class TextClickListener implements View.OnClickListener {

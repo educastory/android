@@ -45,38 +45,34 @@
         Let\'s play catch!!
     </string>
 
-    <!-- リアクション2 (GOOD) -->
-    <string name="reaction2_1">
-        Hey!! It\'s so fun!! I like sports especially catch!!
-    </string>
     <!-- リアクション2 (BAD) -->
-    <string name="reaction2_2">
+    <string name="reaction2_1">
         Actually, I don\'t like coffee very much…. I wanted to exercise…
     </string>
-
-    <string name="title_activity_reaction">ReactionActivity</string>
-    <string name="reaction_next">NEXT</string>
-    <string name="Reaction_text">ここにリアクションを挿入</string>
+    <!-- リアクション2 (GOOD) -->
+    <string name="reaction2_2">
+        Hey!! It\'s so fun!! I like sports especially catch!!
+    </string>
 
     <string name="last_message">
         Thanks for today!! I really had a good time!! See you again!!
     </string>
 
     <string name="narration1">
-        She likes you very much!!
-        You should visit her again!!
+        She is not so happy because you forgot her birth day!!
+        And you should ask her to play catch as she doesn\'t like coffee very much!!
     </string>
 
     <string name="narration2">
-        She is happy but don\'t forget her birth day next time!!
-    </string>
-
-    <string name="narration3">
         She is happy but you should ask her to play catch next time as she doesn\'t like coffee very much!!
     </string>
 
+    <string name="narration3">
+        She is happy but don\'t forget her birth day next time!!
+    </string>
+
     <string name="narration4">
-        She is not so happy because you forgot her birth day!!
-        And you should ask her to play catch as she doesn\'t like coffee very much!!
+        She likes you very much!!
+        You should visit her again!!
     </string>
 </resources>

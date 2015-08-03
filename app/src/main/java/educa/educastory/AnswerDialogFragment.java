@@ -59,6 +59,7 @@ public class AnswerDialogFragment extends DialogFragment {
         answer2.setText(mAnswer2);
         answer2.setOnClickListener(new Answer2ClickListener());
 
+        this.setCancelable(false);
         return builder.create();
     }
 

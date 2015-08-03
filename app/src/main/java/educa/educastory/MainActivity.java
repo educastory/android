@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
     private static final String TAG = MainActivity.class.getName();
     private static final String KEY_MODE = "MODE";
     private static final String KEY_SCORE = "SCORE";
+    private static final String KEY_ANSWER = "ANSWER";
 
     private int mMode;
     private int mScore;
@@ -32,12 +33,30 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
         if (savedInstanceState == null) {
             mMode = 0;
             mScore = 0;
+            mAnswer = 0;
         } else {
             mMode = savedInstanceState.getInt(KEY_MODE, 0);
             mScore = savedInstanceState.getInt(KEY_SCORE, 0);
+            mAnswer = savedInstanceState.getInt(KEY_ANSWER, 0);
         }
 
         nextMode();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mMode = savedInstanceState.getInt(KEY_MODE, 0);
+        mScore = savedInstanceState.getInt(KEY_SCORE, 0);
+        mAnswer = savedInstanceState.getInt(KEY_ANSWER, 0);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_MODE, mMode);
+        outState.putInt(KEY_SCORE, mScore);
+        outState.putInt(KEY_ANSWER, mAnswer);
     }
 
     private void nextMode() {

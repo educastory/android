@@ -1,24 +1,20 @@
 package educa.educastory;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AnswerDialogFragment.OnChoiceListener {
     private static final String TAG = MainActivity.class.getName();
     private static final String KEY_MODE = "MODE";
     private static final String KEY_SCORE = "SCORE";
 
     private int mMode;
     private int mScore;
+    private int mAnswer;
 
     private ImageView image;
     private TextView text;
@@ -41,22 +37,42 @@ public class MainActivity extends AppCompatActivity {
             mScore = savedInstanceState.getInt(KEY_SCORE, 0);
         }
 
-        changeMode();
+        nextMode();
     }
 
-    private void changeMode() {
+    private void nextMode() {
         switch (mMode) {
             case 0:
-                image.setImageResource(R.mipmap.scenario1);
+                image.setImageResource(R.mipmap.question1);
                 text.setText(getString(R.string.question1));
                 break;
             case 1:
                 DialogFragment dialog = AnswerDialogFragment.newInstance(R.string.answer1_1, R.string.answer1_2);
                 dialog.show(getSupportFragmentManager(), "question");
                 break;
+            case 2:
+                if (mAnswer == 1) {
+                    image.setImageResource(R.mipmap.reaction1_1);
+                    text.setText(getString(R.string.reaction1_1));
+                } else {
+                    image.setImageResource(R.mipmap.reaction1_2);
+                    text.setText(getString(R.string.reaction1_2));
+                }
+                break;
             default:
                 finish();
                 break;
+        }
+    }
+
+    @Override
+    public void onChoice(int answer) {
+        switch (mMode) {
+            case 1:
+                mScore += (answer == 1 ? 1 : 0);
+                mAnswer = answer;
+                mMode++;
+                nextMode();
         }
     }
 
@@ -65,56 +81,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             mMode++;
-            changeMode();
-        }
-    }
-
-    public static class AnswerDialogFragment extends DialogFragment {
-        private AnswerDialogFragment self = this;
-        private int mAnswer1;
-        private int mAnswer2;
-
-        public static DialogFragment newInstance(int answer1, int answer2) {
-            AnswerDialogFragment fragment = new AnswerDialogFragment();
-            fragment.mAnswer1 = answer1;
-            fragment.mAnswer2 = answer2;
-            return fragment;
-        }
-
-        public AnswerDialogFragment() {
-            /* Don't remove this constructor */
-        }
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View content = inflater.inflate(R.layout.fragment_answer, null);
-            TextView answer1 = (TextView) content.findViewById(R.id.answer1_text);
-            TextView answer2 = (TextView) content.findViewById(R.id.answer2_text);
-            builder.setView(content);
-
-            answer1.setText(mAnswer1);
-            answer1.setOnClickListener(new Answer1ClickListener());
-            answer2.setText(mAnswer2);
-            answer2.setOnClickListener(new Answer2ClickListener());
-
-            return builder.create();
-        }
-
-        private class Answer1ClickListener implements View.OnClickListener {
-            @Override
-            public void onClick(View v) {
-                self.dismiss();
-            }
-        }
-
-        private class Answer2ClickListener implements View.OnClickListener {
-            @Override
-            public void onClick(View v) {
-                self.dismiss();
-            }
+            nextMode();
         }
     }
 }

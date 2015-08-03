@@ -16,10 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ReactionActivity"
-            android:label="@string/title_activity_reaction"
-            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

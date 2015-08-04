@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
             mAnswer = savedInstanceState.getInt(KEY_ANSWER, 0);
         }
 
-        nextMode();
+        changeMode();
     }
 
     @Override
@@ -59,17 +59,23 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
         outState.putInt(KEY_ANSWER, mAnswer);
     }
 
-    private void nextMode() {
+    private void changeMode() {
         switch (mMode) {
             case 0:
-                image.setImageResource(R.mipmap.question1);
-                text.setText(getString(R.string.question1));
+                image.setImageDrawable(null);
+                text.setText(getString(R.string.first_narration));
+                text.setLines(10);
                 break;
             case 1:
+                image.setImageResource(R.mipmap.question1);
+                text.setText(getString(R.string.question1));
+                text.setLines(5);
+                break;
+            case 2:
                 AnswerDialogFragment.newInstance(R.string.answer1_1, R.string.answer1_2)
                         .show(getSupportFragmentManager(), "question");
                 break;
-            case 2:
+            case 3:
                 if (mAnswer == 1) {
                     image.setImageResource(R.mipmap.reaction1_1);
                     text.setText(getString(R.string.reaction1_1));
@@ -78,15 +84,15 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
                     text.setText(getString(R.string.reaction1_2));
                 }
                 break;
-            case 3:
+            case 4:
                 image.setImageResource(R.mipmap.question2);
                 text.setText(getString(R.string.question2));
                 break;
-            case 4:
+            case 5:
                 AnswerDialogFragment.newInstance(R.string.answer2_1, R.string.answer2_2)
                         .show(getSupportFragmentManager(), "question");
                 break;
-            case 5:
+            case 6:
                 switch (mAnswer) {
                     case 1:
                         image.setImageResource(R.mipmap.reaction2_1);
@@ -98,11 +104,11 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
                         break;
                 }
                 break;
-            case 6:
+            case 7:
                 image.setImageResource(R.mipmap.last_message);
                 text.setText(getString(R.string.last_message));
                 break;
-            case 7:
+            case 8:
                 switch (mScore) {
                     case 0:
                         image.setImageResource(R.mipmap.narration_not_happy);
@@ -116,13 +122,9 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
                         image.setImageResource(R.mipmap.narration_happy);
                         text.setText(getString(R.string.narration3));
                         break;
-                    case 3:
+                    default:
                         image.setImageResource(R.mipmap.narration_so_happy);
                         text.setText(getString(R.string.narration4));
-                        break;
-                    default:
-                        image.setImageResource(R.mipmap.reaction2_2);
-                        text.setText(getString(R.string.reaction2_2));
                         break;
                 }
                 break;
@@ -136,16 +138,16 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
     public void onChoice(int answer) {
         Log.d(TAG, "mode = " + mMode + ", answer = " + answer);
         switch (mMode) {
-            case 1:
+            case 2:
                 mScore += (answer == 1 ? 1 : 0);
                 break;
-            case 4:
+            case 5:
                 mScore += (answer == 1 ? 0 : 2);
                 break;
         }
         mAnswer = answer;
         mMode++;
-        nextMode();
+        changeMode();
     }
 
     private class TextClickListener implements View.OnClickListener {
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
         @Override
         public void onClick(View v) {
             mMode++;
-            nextMode();
+            changeMode();
         }
     }
 }

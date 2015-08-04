@@ -1,7 +1,8 @@
 ﻿<resources>
-    <string name="app_name">EducaStory</string>
+    <string name="app_name">Educa Story</string>
+    <string name="title_activity_title">Educa Story</string>
 
-    <string name="chapter">Lesson1: You visit Japan</string>
+    <string name="lesson">Lesson1: You visit Japan</string>
 
     <string name="first_narration">
         You visit Japan. You have a friend named Sakura.
@@ -9,7 +10,6 @@
         She likes sports especially catch and she often posts sports pictures. And you know today is her birth day!!
     </string>
 
-    <!-- 画面1 -->
     <string name="question1">
         Hi, how are you doing??
         Welcome to Japan!!
@@ -23,18 +23,13 @@
     <string name="answer1_2">
         Sorry, I don\'t know anything… What day is it today??
     </string>
-
-    <!-- リアクション1 (GOOD) -->
     <string name="reaction1_1">
         Yeah!! Why do you know that?! But thanks, I\'m so happy!!
     </string>
-
-    <!-- リアクション1 (BAD) -->
     <string name="reaction1_2">
         Heeeeey It\'s my birth day!! Please remember!!
     </string>
 
-    <!-- 画面2 -->
     <string name="question2">
         Anyway, where are we going today??
     </string>
@@ -44,12 +39,9 @@
     <string name="answer2_2">
         Let\'s play catch!!
     </string>
-
-    <!-- リアクション2 (BAD) -->
     <string name="reaction2_1">
         Actually, I don\'t like coffee very much…. I wanted to exercise…
     </string>
-    <!-- リアクション2 (GOOD) -->
     <string name="reaction2_2">
         Hey!! It\'s so fun!! I like sports especially catch!!
     </string>
@@ -62,19 +54,16 @@
         She is not so happy because you forgot her birth day!!
         And you should ask her to play catch as she doesn\'t like coffee very much!!
     </string>
-
     <string name="narration2">
         She is happy but you should ask her to play catch next time as she doesn\'t like coffee very much!!
     </string>
-
     <string name="narration3">
         She is happy but don\'t forget her birth day next time!!
     </string>
-
     <string name="narration4">
         She likes you very much!!
         You should visit her again!!
     </string>
-    <string name="title_activity_title">Title</string>
+
     <string name="choice">Choice</string>
 </resources>

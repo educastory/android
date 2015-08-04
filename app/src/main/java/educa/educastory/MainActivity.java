@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
         setContentView(R.layout.activity_main);
         image = (ImageView) findViewById(R.id.image_view);
         text = (TextView) findViewById(R.id.text_view);
-        setTitle(R.string.chapter);
+        setTitle(R.string.lesson);
 
         text.setOnClickListener(new TextClickListener());
 

@@ -25,7 +25,7 @@ public class TitleActivity extends AppCompatActivity {
     private class LessonClickListener implements android.widget.AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = MainActivity.createIntent(TitleActivity.this, 1);
             startActivity(intent);
         }
     }

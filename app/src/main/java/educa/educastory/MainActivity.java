@@ -1,5 +1,9 @@
 package educa.educastory;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -7,130 +11,150 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import icepick.Icepick;
+import icepick.Icicle;
+
 public class MainActivity extends AppCompatActivity implements AnswerDialogFragment.OnChoiceListener {
     private static final String TAG = MainActivity.class.getName();
-    private static final String KEY_MODE = "MODE";
-    private static final String KEY_SCORE = "SCORE";
-    private static final String KEY_ANSWER = "ANSWER";
+    private static final String KEY_LESSON_NO = "LESSON_NO";
 
-    private int mMode;
-    private int mScore;
-    private int mAnswer;
+    private ImageView mLessonImage;
+    private TextView mLessonText;
 
-    private ImageView image;
-    private TextView text;
+    @Icicle
+    Lesson mLesson;
+
+    @Icicle
+    int mMode;
+
+    @Icicle
+    int mScore;
+
+    @Icicle
+    int mAnswer;
+
+    public static Intent createIntent(Context context, int lessonNo) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(KEY_LESSON_NO, lessonNo);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        image = (ImageView) findViewById(R.id.image_view);
-        text = (TextView) findViewById(R.id.text_view);
-        setTitle(R.string.lesson);
-
-        text.setOnClickListener(new TextClickListener());
+        mLessonImage = (ImageView) findViewById(R.id.lesson_image);
+        mLessonText = (TextView) findViewById(R.id.lesson_text);
+        mLessonText.setOnClickListener(new TextClickListener());
 
         if (savedInstanceState == null) {
+            Intent intent = getIntent();
+            int lessonNo = intent.getIntExtra(KEY_LESSON_NO, 1);
+            mLesson = Lesson.createLesson(this, lessonNo);
             mMode = 0;
             mScore = 0;
             mAnswer = 0;
         } else {
-            mMode = savedInstanceState.getInt(KEY_MODE, 0);
-            mScore = savedInstanceState.getInt(KEY_SCORE, 0);
-            mAnswer = savedInstanceState.getInt(KEY_ANSWER, 0);
+            Icepick.restoreInstanceState(this, savedInstanceState);
         }
 
+        setTitle(mLesson.getTitle());
         changeMode();
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        mMode = savedInstanceState.getInt(KEY_MODE, 0);
-        mScore = savedInstanceState.getInt(KEY_SCORE, 0);
-        mAnswer = savedInstanceState.getInt(KEY_ANSWER, 0);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(KEY_MODE, mMode);
-        outState.putInt(KEY_SCORE, mScore);
-        outState.putInt(KEY_ANSWER, mAnswer);
+        Icepick.saveInstanceState(this, outState);
     }
 
     private void changeMode() {
+        Conversation conversation1 = mLesson.getConversation1();
+        Conversation conversation2 = mLesson.getConversation2();
+        Result result0 = mLesson.getResult0();
+        Result result1 = mLesson.getResult1();
+        Result result2 = mLesson.getResult2();
+        Result result3 = mLesson.getResult3();
+
         switch (mMode) {
             case 0:
-                image.setImageDrawable(null);
-                text.setText(getString(R.string.first_narration));
-                text.setLines(10);
+                mLessonImage.setImageDrawable(null);
+                mLessonText.setText(mLesson.getFirstNarration());
+                mLessonText.setLines(10);
                 break;
             case 1:
-                image.setImageResource(R.mipmap.question1);
-                text.setText(getString(R.string.question1));
-                text.setLines(5);
+                mLessonImage.setImageBitmap(createBitmap(conversation1.getQuestionImage(), conversation1.getQuestionResId()));
+                mLessonText.setText(conversation1.getQuestion());
+                mLessonText.setLines(5);
                 break;
             case 2:
-                AnswerDialogFragment.newInstance(R.string.answer1_1, R.string.answer1_2)
+                AnswerDialogFragment.newInstance(conversation1.getAnswer1(), conversation1.getAnswer1())
                         .show(getSupportFragmentManager(), "question");
                 break;
             case 3:
                 if (mAnswer == 1) {
-                    image.setImageResource(R.mipmap.reaction1_1);
-                    text.setText(getString(R.string.reaction1_1));
+                    mLessonImage.setImageBitmap(createBitmap(conversation1.getReaction1Image(), conversation1.getReaction1ResId()));
+                    mLessonText.setText(conversation1.getReaction1());
                 } else {
-                    image.setImageResource(R.mipmap.reaction1_2);
-                    text.setText(getString(R.string.reaction1_2));
+                    mLessonImage.setImageBitmap(createBitmap(conversation1.getReaction2Image(), conversation1.getReaction2ResId()));
+                    mLessonText.setText(conversation1.getReaction2());
                 }
                 break;
             case 4:
-                image.setImageResource(R.mipmap.question2);
-                text.setText(getString(R.string.question2));
+                mLessonImage.setImageBitmap(createBitmap(conversation2.getQuestionImage(), conversation2.getQuestionResId()));
+                mLessonText.setText(conversation2.getQuestion());
                 break;
             case 5:
-                AnswerDialogFragment.newInstance(R.string.answer2_1, R.string.answer2_2)
+                AnswerDialogFragment.newInstance(conversation2.getAnswer1(), conversation2.getAnswer2())
                         .show(getSupportFragmentManager(), "question");
                 break;
             case 6:
                 switch (mAnswer) {
                     case 1:
-                        image.setImageResource(R.mipmap.reaction2_1);
-                        text.setText(getString(R.string.reaction2_1));
+                        mLessonImage.setImageBitmap(createBitmap(conversation2.getReaction1Image(), conversation2.getReaction1ResId()));
+                        mLessonText.setText(conversation2.getReaction1());
                         break;
                     default:
-                        image.setImageResource(R.mipmap.reaction2_2);
-                        text.setText(getString(R.string.reaction2_2));
+                        mLessonImage.setImageBitmap(createBitmap(conversation2.getReaction2Image(), conversation2.getReaction2ResId()));
+                        mLessonText.setText(conversation2.getReaction2());
                         break;
                 }
                 break;
             case 7:
-                image.setImageResource(R.mipmap.last_message);
-                text.setText(getString(R.string.last_message));
+                mLessonText.setText(mLesson.getLastMessage());
+                mLessonImage.setImageBitmap(createBitmap(mLesson.getLastMessageImage(), mLesson.getLastMessageResId()));
                 break;
             case 8:
                 switch (mScore) {
                     case 0:
-                        image.setImageResource(R.mipmap.narration_not_happy);
-                        text.setText(getString(R.string.narration1));
+                        mLessonImage.setImageBitmap(createBitmap(result0.getNarrationImage(), result0.getNarrationResId()));
+                        mLessonText.setText(result0.getNarration());
                         break;
                     case 1:
-                        image.setImageResource(R.mipmap.narration_happy);
-                        text.setText(getString(R.string.narration2));
+                        mLessonImage.setImageBitmap(createBitmap(result1.getNarrationImage(), result1.getNarrationResId()));
+                        mLessonText.setText(result1.getNarration());
                         break;
                     case 2:
-                        image.setImageResource(R.mipmap.narration_happy);
-                        text.setText(getString(R.string.narration3));
+                        mLessonImage.setImageBitmap(createBitmap(result2.getNarrationImage(), result2.getNarrationResId()));
+                        mLessonText.setText(result2.getNarration());
                         break;
                     default:
-                        image.setImageResource(R.mipmap.narration_so_happy);
-                        text.setText(getString(R.string.narration4));
+                        mLessonImage.setImageBitmap(createBitmap(result3.getNarrationImage(), result3.getNarrationResId()));
+                        mLessonText.setText(result3.getNarration());
                         break;
                 }
                 break;
             default:
                 finish();
                 break;
+        }
+    }
+
+    private Bitmap createBitmap(byte[] data, int resId) {
+        if (data != null) {
+            return BitmapFactory.decodeByteArray(data, 0, data.length);
+        } else {
+            return BitmapFactory.decodeResource(getResources(), resId);
         }
     }
 

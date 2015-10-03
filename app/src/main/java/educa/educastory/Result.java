@@ -1,13 +1,14 @@
 package educa.educastory;
 
-import android.graphics.Bitmap;
+import java.io.Serializable;
 
 /**
  * Created by kenji on 15/10/03.
  */
-public class Result {
+public class Result implements Serializable {
     private String mNarration;
-    private Bitmap mNarrationImage;
+    private byte[] mNarrationImage;
+    private int mNarrationResId;
 
     public String getNarration() {
         return mNarration;
@@ -17,11 +18,19 @@ public class Result {
         this.mNarration = narration;
     }
 
-    public Bitmap getNarrationImage() {
+    public byte[] getNarrationImage() {
         return mNarrationImage;
     }
 
-    public void setNarrationImage(Bitmap mnarrationimage) {
-        this.mNarrationImage = mnarrationimage;
+    public void setNarrationImage(byte[] narrationImage) {
+        this.mNarrationImage = narrationImage;
+    }
+
+    public int getNarrationResId() {
+        return mNarrationResId;
+    }
+
+    public void setNarrationResId(int narrationResId) {
+        this.mNarrationResId = narrationResId;
     }
 }

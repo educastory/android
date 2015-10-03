@@ -25,11 +25,11 @@ public class AnswerDialogFragment extends DialogFragment {
         void onChoice(int answer);
     }
 
-    public static DialogFragment newInstance(int answer1, int answer2) {
+    public static DialogFragment newInstance(String answer1, String answer2) {
         AnswerDialogFragment fragment = new AnswerDialogFragment();
         Bundle args = new Bundle();
-        args.putInt(KEY_ANSWER1, answer1);
-        args.putInt(KEY_ANSWER2, answer2);
+        args.putString(KEY_ANSWER1, answer1);
+        args.putString(KEY_ANSWER2, answer2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,8 +42,8 @@ public class AnswerDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
-        int answer1 = args.getInt(KEY_ANSWER1);
-        int answer2 = args.getInt(KEY_ANSWER2);
+        String answer1 = args.getString(KEY_ANSWER1);
+        String answer2 = args.getString(KEY_ANSWER2);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

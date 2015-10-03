@@ -1,4 +1,4 @@
-package educa.educastory;
+package educa.educastory.data;
 
 import java.io.Serializable;
 

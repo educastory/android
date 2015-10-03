@@ -1,9 +1,10 @@
-package educa.educastory;
+package educa.educastory.data;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 import java.io.Serializable;
+
+import educa.educastory.R;
 
 /**
  * Created by kenji on 15/10/03.
@@ -26,8 +27,6 @@ public class Lesson implements Serializable {
     }
 
     private Lesson(Context context) {
-        Resources resources = context.getResources();
-
         mTitle = context.getString(R.string.lesson);
         mFirstNarration = context.getString(R.string.first_narration);
         

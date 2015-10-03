@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import educa.educastory.data.Conversation;
+import educa.educastory.data.Lesson;
+import educa.educastory.data.Result;
 import icepick.Icepick;
 import icepick.Icicle;
 

@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.github.frankiesardo:icepick:2.3.6'
     compile 'com.github.frankiesardo:icepick-processor:2.3.6'
+    compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
 }

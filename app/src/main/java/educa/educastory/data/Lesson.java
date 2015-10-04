@@ -10,6 +10,7 @@ import educa.educastory.R;
  * Created by kenji on 15/10/03.
  */
 public class Lesson implements Serializable {
+    private int mNo;
     private String mTitle;
     private String mFirstNarration;
     private Conversation mConversation1;
@@ -26,7 +27,12 @@ public class Lesson implements Serializable {
         return new Lesson(context);
     }
 
+    public Lesson() {
+        /* nop */
+    }
+
     private Lesson(Context context) {
+        mNo = 1;
         mTitle = context.getString(R.string.lesson);
         mFirstNarration = context.getString(R.string.first_narration);
         
@@ -64,6 +70,14 @@ public class Lesson implements Serializable {
         mResult4 = new Result();
         mResult4.setNarration(context.getString(R.string.narration4));
         mResult4.setNarrationResId(R.mipmap.narration_so_happy);
+    }
+
+    public int getNo() {
+        return mNo;
+    }
+
+    public void setNo(int no) {
+        this.mNo = no;
     }
 
     public String getTitle() {

@@ -33,7 +33,7 @@ public class TitleActivity extends AppCompatActivity {
             helper.requestTitles(new LessonCallback() {
                 @Override
                 public void execute(List<Lesson> lessons) {
-                    mLessons = new ArrayList(lessons);
+                    mLessons = new ArrayList<>(lessons);
                     refreshListView(adapter);
                 }
             });

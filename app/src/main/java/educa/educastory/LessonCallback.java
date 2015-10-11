@@ -1,12 +1,8 @@
 package educa.educastory;
 
-import java.util.List;
-
-import educa.educastory.data.Lesson;
-
 /**
- * Created by kenji on 15/10/04.
+ * Created by kenji on 15/10/11.
  */
 public interface LessonCallback {
-    void execute(List<Lesson> lessons);
+    void execute(byte[] data);
 }

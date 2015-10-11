@@ -30,17 +30,26 @@ public class TitleActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             VolleyHelper helper = VolleyHelper.createInstance(this);
-            helper.requestTitles(new LessonCallback() {
+            helper.requestTitles(new LessonsCallback() {
                 @Override
                 public void execute(List<Lesson> lessons) {
                     mLessons = new ArrayList<>(lessons);
+                    addBundledLesson(adapter);
                     refreshListView(adapter);
                 }
             });
         } else {
             Icepick.restoreInstanceState(this, savedInstanceState);
+            addBundledLesson(adapter);
             refreshListView(adapter);
         }
+    }
+
+    private void addBundledLesson(TitleAdapter adapter) {
+        Lesson bundledLesson = new Lesson();
+        bundledLesson.setNo(1);
+        bundledLesson.setTitle(getString(R.string.lesson));
+        adapter.add(bundledLesson);
     }
 
     private void refreshListView(TitleAdapter adapter) {

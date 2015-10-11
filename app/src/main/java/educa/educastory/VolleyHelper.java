@@ -17,9 +17,6 @@ import java.util.ArrayList;
 
 import educa.educastory.data.Lesson;
 
-/**
- * Created by kenji on 15/10/04.
- */
 public class VolleyHelper {
     private static final String TAG = VolleyHelper.class.getName();
     private static RequestQueue sQueue;
@@ -38,7 +35,7 @@ public class VolleyHelper {
         /* nop */
     }
 
-    public void requestTitles(final LessonCallback callback) {
+    public void requestTitles(final LessonsCallback callback) {
         String url = Const.BASE_URL + "/lessons.json";
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
@@ -63,6 +60,23 @@ public class VolleyHelper {
                     }
                 }
                 callback.execute(lessons);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "volley error", error);
+            }
+        });
+        request.setShouldCache(false);
+        sQueue.add(request);
+    }
+
+    public void requestLesson(int lessonNo, final LessonCallback callback) {
+        String url = Const.BASE_URL + "/" + lessonNo + ".zip";
+        LessonRequest request = new LessonRequest(url, new Response.Listener<byte[]>() {
+            @Override
+            public void onResponse(byte[] response) {
+                callback.execute(response);
             }
         }, new Response.ErrorListener() {
             @Override

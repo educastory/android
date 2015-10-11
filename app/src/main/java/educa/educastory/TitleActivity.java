@@ -1,8 +1,11 @@
 package educa.educastory;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -68,8 +71,23 @@ public class TitleActivity extends AppCompatActivity {
     private class LessonClickListener implements android.widget.AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent intent = MainActivity.createIntent(TitleActivity.this, 1);
-            startActivity(intent);
+            final Lesson lesson = (Lesson) parent.getItemAtPosition(position);
+            final Intent intent = MainActivity.createIntent(TitleActivity.this, lesson.getNo());
+            final String lessonNo = Integer.toString(lesson.getNo());
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(TitleActivity.this);
+            if (preferences.contains(lessonNo)) {
+                startActivity(intent);
+            } else {
+                VolleyHelper.createInstance(TitleActivity.this).requestLesson(lesson.getNo(), new LessonCallback() {
+                    @Override
+                    public void execute(byte[] data) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(lessonNo, Base64.encodeToString(data, Base64.DEFAULT));
+                        editor.commit();
+                        startActivity(intent);
+                    }
+                });
+            }
         }
     }
 }

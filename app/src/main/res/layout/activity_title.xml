@@ -15,7 +15,7 @@
         android:background="#CCEECC"
         android:paddingBottom="16dp"
         android:paddingTop="16dp"
-        android:src="@mipmap/educa" />
+        android:src="@drawable/educa" />
 
     <ListView
         android:id="@+id/lesson_list"

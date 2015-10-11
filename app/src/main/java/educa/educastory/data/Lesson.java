@@ -38,38 +38,38 @@ public class Lesson implements Serializable {
         
         mConversation1 = new Conversation();
         mConversation1.setQuestion(context.getString(R.string.question1));
-        mConversation1.setQuestionResId(R.mipmap.question1);
+        mConversation1.setQuestionResId(R.drawable.question1);
         mConversation1.setAnswer1(context.getString(R.string.answer1_1));
         mConversation1.setAnswer2(context.getString(R.string.answer1_2));
         mConversation1.setReaction1(context.getString(R.string.reaction1_1));
-        mConversation1.setReaction1ResId(R.mipmap.reaction1_1);
+        mConversation1.setReaction1ResId(R.drawable.reaction1_1);
         mConversation1.setReaction2(context.getString(R.string.reaction1_2));
-        mConversation1.setReaction2ResId(R.mipmap.reaction1_2);
+        mConversation1.setReaction2ResId(R.drawable.reaction1_2);
 
         mConversation2 = new Conversation();
         mConversation2.setQuestion(context.getString(R.string.question2));
-        mConversation2.setQuestionResId(R.mipmap.question2);
+        mConversation2.setQuestionResId(R.drawable.question2);
         mConversation2.setAnswer1(context.getString(R.string.answer2_1));
         mConversation2.setAnswer2(context.getString(R.string.answer2_2));
         mConversation2.setReaction1(context.getString(R.string.reaction2_1));
-        mConversation2.setReaction1ResId(R.mipmap.reaction2_1);
+        mConversation2.setReaction1ResId(R.drawable.reaction2_1);
         mConversation2.setReaction2(context.getString(R.string.reaction2_2));
-        mConversation2.setReaction2ResId(R.mipmap.reaction2_2);
+        mConversation2.setReaction2ResId(R.drawable.reaction2_2);
 
         mLastMessage = context.getString(R.string.last_message);
-        mLastMessageResId = R.mipmap.last_message;
+        mLastMessageResId = R.drawable.last_message;
         mResult1 = new Result();
         mResult1.setNarration(context.getString(R.string.narration1));
-        mResult1.setNarrationResId(R.mipmap.narration_not_happy);
+        mResult1.setNarrationResId(R.drawable.narration_not_happy);
         mResult2 = new Result();
         mResult2.setNarration(context.getString(R.string.narration2));
-        mResult2.setNarrationResId(R.mipmap.narration_happy);
+        mResult2.setNarrationResId(R.drawable.narration_happy);
         mResult3 = new Result();
         mResult3.setNarration(context.getString(R.string.narration3));
-        mResult3.setNarrationResId(R.mipmap.narration_happy);
+        mResult3.setNarrationResId(R.drawable.narration_happy);
         mResult4 = new Result();
         mResult4.setNarration(context.getString(R.string.narration4));
-        mResult4.setNarrationResId(R.mipmap.narration_so_happy);
+        mResult4.setNarrationResId(R.drawable.narration_so_happy);
     }
 
     public int getNo() {

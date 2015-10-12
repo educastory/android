@@ -74,10 +74,10 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
     private void changeMode() {
         Conversation conversation1 = mLesson.getConversation1();
         Conversation conversation2 = mLesson.getConversation2();
-        Result result0 = mLesson.getResult0();
         Result result1 = mLesson.getResult1();
         Result result2 = mLesson.getResult2();
         Result result3 = mLesson.getResult3();
+        Result result4 = mLesson.getResult4();
 
         switch (mMode) {
             case 0:
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
                 mLessonText.setLines(5);
                 break;
             case 2:
-                AnswerDialogFragment.newInstance(conversation1.getAnswer1(), conversation1.getAnswer1())
+                AnswerDialogFragment.newInstance(conversation1.getAnswer1(), conversation1.getAnswer2())
                         .show(getSupportFragmentManager(), "question");
                 break;
             case 3:
@@ -130,20 +130,20 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
             case 8:
                 switch (mScore) {
                     case 0:
-                        mLessonImage.setImageBitmap(createBitmap(result0.getNarrationImage(), result0.getNarrationResId()));
-                        mLessonText.setText(result0.getNarration());
-                        break;
-                    case 1:
                         mLessonImage.setImageBitmap(createBitmap(result1.getNarrationImage(), result1.getNarrationResId()));
                         mLessonText.setText(result1.getNarration());
                         break;
-                    case 2:
+                    case 1:
                         mLessonImage.setImageBitmap(createBitmap(result2.getNarrationImage(), result2.getNarrationResId()));
                         mLessonText.setText(result2.getNarration());
                         break;
-                    default:
+                    case 2:
                         mLessonImage.setImageBitmap(createBitmap(result3.getNarrationImage(), result3.getNarrationResId()));
                         mLessonText.setText(result3.getNarration());
+                        break;
+                    default:
+                        mLessonImage.setImageBitmap(createBitmap(result4.getNarrationImage(), result4.getNarrationResId()));
+                        mLessonText.setText(result4.getNarration());
                         break;
                 }
                 break;

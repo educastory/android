@@ -45,7 +45,7 @@ public class VolleyHelper {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         /* think about last extra comma */
-                        if (response.get(i) == null) {
+                        if (response.isNull(i)) {
                             continue;
                         }
                         JSONObject json = response.getJSONObject(i);

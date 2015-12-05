@@ -28,6 +28,7 @@ public class HeaderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_title);
 
         mHeaderList = (ListView) findViewById(R.id.header_list);
+        mHeaderList.setEmptyView(findViewById(R.id.empty_text));
         final HeaderAdapter adapter = new HeaderAdapter(this);
         mHeaderList.setAdapter(adapter);
         mHeaderList.setOnItemClickListener(new HeaderClickListener());

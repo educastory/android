@@ -22,13 +22,14 @@ import educa.educastory.data.Header;
 
 public class VolleyHelper {
     private static final String TAG = VolleyHelper.class.getName();
+    private static final String HEADER = "HEADER";
+    private static final Object LOCK = new Object();
     private static RequestQueue sQueue;
-    private static final Object sLock = new Object();
 
     private Context mContext;
 
     public static VolleyHelper createInstance(Context context) {
-        synchronized (sLock) {
+        synchronized (LOCK) {
             if (sQueue == null) {
                 sQueue = Volley.newRequestQueue(context);
             }
@@ -41,41 +42,41 @@ public class VolleyHelper {
     }
 
     public void requestHeaders(final HeadersCallback callback) {
-        final String url = Const.BASE_URL + "/lessons.json";
         if (!Decision.isConnected(mContext)) {
-            requestHeadersFailure(callback, url, null);
+            requestHeadersFailure(callback, null);
             return;
         }
+        final String url = Const.BASE_URL + "/lessons.json";
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(final JSONArray response) {
                 Log.d(TAG, "response = " + response);
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(url, response.toString());
+                editor.putString(HEADER, response.toString());
                 editor.commit();
                 requestHeadersFinish(callback, response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                requestHeadersFailure(callback, url, error);
+                requestHeadersFailure(callback, error);
             }
         });
         request.setShouldCache(false);
         sQueue.add(request);
     }
 
-    private void requestHeadersFailure(HeadersCallback callback, String url, VolleyError error) {
+    private void requestHeadersFailure(HeadersCallback callback, VolleyError error) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String json = preferences.getString(url, "");
+        String json = preferences.getString(HEADER, "");
         try {
             JSONArray response = new JSONArray(json);
             requestHeadersFinish(callback, response);
             Log.w(TAG, "volley error", error);
         } catch (JSONException e) {
             Log.e(TAG, "volley error", error);
-            callback.execute(null);
+            callback.execute(new ArrayList<Header>());
         }
     }
 
@@ -102,6 +103,11 @@ public class VolleyHelper {
     }
 
     public void requestLesson(final String lessonNo, final LessonCallback callback) {
+        if (!Decision.isConnected(mContext)) {
+            requestLessonFailure(callback, lessonNo, null);
+            return;
+        }
+
         String url = Const.BASE_URL + "/" + lessonNo + ".zip";
         LessonRequest request = new LessonRequest(url, new Response.Listener<byte[]>() {
             @Override

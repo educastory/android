@@ -9,16 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import educa.educastory.data.Title;
+import educa.educastory.data.Header;
 
-public class TitleAdapter extends ArrayAdapter<Title> {
-    public TitleAdapter(Context context) {
+public class HeaderAdapter extends ArrayAdapter<Header> {
+    public HeaderAdapter(Context context) {
         super(context, 0);
     }
 
     static class ViewHolder {
         TextView noText;
-        TextView textText;
+        TextView titleText;
         TextView unloadText;
     }
 
@@ -27,21 +27,21 @@ public class TitleAdapter extends ArrayAdapter<Title> {
         ViewHolder holder;
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.title_item, null);
+            convertView = inflater.inflate(R.layout.header_item, null);
             holder = new ViewHolder();
             holder.noText = (TextView) convertView.findViewById(R.id.no_text);
-            holder.textText = (TextView) convertView.findViewById(R.id.text_text);
+            holder.titleText = (TextView) convertView.findViewById(R.id.title_text);
             holder.unloadText = (TextView) convertView.findViewById(R.id.unload_text);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Title title = getItem(position);
-        holder.noText.setText(getContext().getString(R.string.lesson_title, title.getNo()));
-        holder.textText.setText(title.getText());
+        Header header = getItem(position);
+        holder.noText.setText(getContext().getString(R.string.lesson_no, header.getNo()));
+        holder.titleText.setText(header.getTitle());
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        boolean isUnloaded = !preferences.contains(Integer.toString(title.getNo()));
+        boolean isUnloaded = !preferences.contains(Integer.toString(header.getNo()));
         holder.unloadText.setVisibility(isUnloaded ? View.VISIBLE : View.GONE);
         return convertView;
     }

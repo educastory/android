@@ -5,9 +5,9 @@ import java.io.Serializable;
 /**
  * Created by kenji on 15/12/05.
  */
-public class Title implements Serializable {
+public class Header implements Serializable {
     private int mNo;
-    private String mText;
+    private String mTitle;
 
     public int getNo() {
         return mNo;
@@ -17,11 +17,11 @@ public class Title implements Serializable {
         this.mNo = no;
     }
 
-    public String getText() {
-        return mText;
+    public String getTitle() {
+        return mTitle;
     }
 
-    public void setText(String text) {
-        this.mText = text;
+    public void setTitle(String title) {
+        this.mTitle = title;
     }
 }

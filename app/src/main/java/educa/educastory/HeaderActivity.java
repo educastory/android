@@ -1,11 +1,8 @@
 package educa.educastory;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -51,7 +48,7 @@ public class HeaderActivity extends AppCompatActivity {
     }
 
     private void refreshListView(HeaderAdapter adapter) {
-        for(Header header : mHeaders) {
+        for (Header header : mHeaders) {
             adapter.add(header);
         }
         adapter.notifyDataSetChanged();
@@ -69,20 +66,12 @@ public class HeaderActivity extends AppCompatActivity {
             final Header header = (Header) parent.getItemAtPosition(position);
             final Intent intent = MainActivity.createIntent(HeaderActivity.this, header.getNo());
             final String lessonNo = Integer.toString(header.getNo());
-            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(HeaderActivity.this);
-            if (preferences.contains(lessonNo)) {
-                startActivityForResult(intent, RC_HEADER);
-            } else {
-                VolleyHelper.createInstance(HeaderActivity.this).requestLesson(header.getNo(), new LessonCallback() {
-                    @Override
-                    public void execute(byte[] data) {
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString(lessonNo, Base64.encodeToString(data, Base64.DEFAULT));
-                        editor.commit();
-                        startActivityForResult(intent, RC_HEADER);
-                    }
-                });
-            }
+            VolleyHelper.createInstance(HeaderActivity.this).requestLesson(lessonNo, new LessonCallback() {
+                @Override
+                public void execute(byte[] data) {
+                    startActivityForResult(intent, RC_HEADER);
+                }
+            });
         }
     }
 

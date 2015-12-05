@@ -3,6 +3,7 @@ package educa.educastory;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -48,8 +49,8 @@ public class VolleyHelper {
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(final JSONArray response) {
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
                 Log.d(TAG, "response = " + response);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString(url, response.toString());
                 editor.commit();
@@ -82,7 +83,7 @@ public class VolleyHelper {
         ArrayList<Header> headers = new ArrayList<>();
         for (int i = 0; i < response.length(); i++) {
             try {
-                        /* think about last extra comma */
+                /* think about last extra comma */
                 if (response.isNull(i)) {
                     continue;
                 }
@@ -100,20 +101,36 @@ public class VolleyHelper {
         callback.execute(headers);
     }
 
-    public void requestLesson(int lessonNo, final LessonCallback callback) {
+    public void requestLesson(final String lessonNo, final LessonCallback callback) {
         String url = Const.BASE_URL + "/" + lessonNo + ".zip";
         LessonRequest request = new LessonRequest(url, new Response.Listener<byte[]>() {
             @Override
             public void onResponse(byte[] response) {
-                callback.execute(response);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(lessonNo, Base64.encodeToString(response, Base64.DEFAULT));
+                editor.commit();
+                requestLessonFinish(callback, response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "volley error", error);
+                requestLessonFailure(callback, lessonNo, error);
             }
         });
         request.setShouldCache(false);
         sQueue.add(request);
+    }
+
+    private void requestLessonFailure(LessonCallback callback, String lessonNo, VolleyError error) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String base64Text = preferences.getString(lessonNo, "");
+        byte[] data = Base64.decode(base64Text, Base64.DEFAULT);
+        requestLessonFinish(callback, data);
+        Log.w(TAG, "volley error", error);
+    }
+
+    private void requestLessonFinish(LessonCallback callback, byte[] response) {
+        callback.execute(response);
     }
 }

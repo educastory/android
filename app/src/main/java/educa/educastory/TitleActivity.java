@@ -18,6 +18,10 @@ import icepick.Icepick;
 import icepick.Icicle;
 
 public class TitleActivity extends AppCompatActivity {
+    private static final int RC_TITLE = 1001;
+
+    private ListView mLessonList;
+
     @Icicle
     ArrayList<Lesson> mLessons;
 
@@ -26,10 +30,10 @@ public class TitleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
 
-        ListView lessonList = (ListView) findViewById(R.id.lesson_list);
+        mLessonList = (ListView) findViewById(R.id.lesson_list);
         final TitleAdapter adapter = new TitleAdapter(this);
-        lessonList.setAdapter(adapter);
-        lessonList.setOnItemClickListener(new LessonClickListener());
+        mLessonList.setAdapter(adapter);
+        mLessonList.setOnItemClickListener(new LessonClickListener());
 
         if (savedInstanceState == null) {
             VolleyHelper helper = VolleyHelper.createInstance(this);
@@ -67,7 +71,7 @@ public class TitleActivity extends AppCompatActivity {
             final String lessonNo = Integer.toString(lesson.getNo());
             final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(TitleActivity.this);
             if (preferences.contains(lessonNo)) {
-                startActivity(intent);
+                startActivityForResult(intent, RC_TITLE);
             } else {
                 VolleyHelper.createInstance(TitleActivity.this).requestLesson(lesson.getNo(), new LessonCallback() {
                     @Override
@@ -75,10 +79,19 @@ public class TitleActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString(lessonNo, Base64.encodeToString(data, Base64.DEFAULT));
                         editor.commit();
-                        startActivity(intent);
+                        startActivityForResult(intent, RC_TITLE);
                     }
                 });
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_TITLE) {
+            TitleAdapter adapter = (TitleAdapter) mLessonList.getAdapter();
+            adapter.notifyDataSetChanged();
         }
     }
 }

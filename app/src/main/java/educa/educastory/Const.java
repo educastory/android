@@ -5,5 +5,5 @@ public final class Const {
         /* nop */
     }
 
-    public static final String BASE_URL = "https://raw.githubusercontent.com/wiki/educastory/contents";
+    public static final String BASE_URL = "https://raw.githubusercontent.com/educastory/contents/master";
 }

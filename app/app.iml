@@ -95,7 +95,7 @@
     <orderEntry type="library" exported="" name="icepick-processor-2.3.6" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
-    <orderEntry type="library" exported="" name="icepick-2.3.6" level="project" />
     <orderEntry type="library" exported="" name="com.android.volley-2015.05.28" level="project" />
+    <orderEntry type="library" exported="" name="icepick-2.3.6" level="project" />
   </component>
 </module>

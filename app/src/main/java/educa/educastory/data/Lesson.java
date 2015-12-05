@@ -13,8 +13,6 @@ import java.io.Serializable;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import educa.educastory.R;
-
 /**
  * Created by kenji on 15/10/03.
  */
@@ -35,50 +33,11 @@ public class Lesson implements Serializable {
     private Result mResult4 = new Result();
 
     public static Lesson createLesson(Context context, int lessonNo) {
-        if (lessonNo == 1) {
-            return new Lesson(context);
-        } else {
-            return new Lesson(context, lessonNo);
-        }
+        return new Lesson(context, lessonNo);
     }
 
     public Lesson() {
         /* nop */
-    }
-
-    private Lesson(Context context) {
-        mNo = 1;
-        mTitle = context.getString(R.string.lesson);
-        mFirstNarration = context.getString(R.string.first_narration);
-
-        mConversation1.setQuestion(context.getString(R.string.question1));
-        mConversation1.setQuestionResId(R.drawable.question1);
-        mConversation1.setAnswer1(context.getString(R.string.answer1_1));
-        mConversation1.setAnswer2(context.getString(R.string.answer1_2));
-        mConversation1.setReaction1(context.getString(R.string.reaction1_1));
-        mConversation1.setReaction1ResId(R.drawable.reaction1_1);
-        mConversation1.setReaction2(context.getString(R.string.reaction1_2));
-        mConversation1.setReaction2ResId(R.drawable.reaction1_2);
-
-        mConversation2.setQuestion(context.getString(R.string.question2));
-        mConversation2.setQuestionResId(R.drawable.question2);
-        mConversation2.setAnswer1(context.getString(R.string.answer2_1));
-        mConversation2.setAnswer2(context.getString(R.string.answer2_2));
-        mConversation2.setReaction1(context.getString(R.string.reaction2_1));
-        mConversation2.setReaction1ResId(R.drawable.reaction2_1);
-        mConversation2.setReaction2(context.getString(R.string.reaction2_2));
-        mConversation2.setReaction2ResId(R.drawable.reaction2_2);
-
-        mLastMessage = context.getString(R.string.last_message);
-        mLastMessageResId = R.drawable.last_message;
-        mResult1.setNarration(context.getString(R.string.narration1));
-        mResult1.setNarrationResId(R.drawable.narration_not_happy);
-        mResult2.setNarration(context.getString(R.string.narration2));
-        mResult2.setNarrationResId(R.drawable.narration_happy);
-        mResult3.setNarration(context.getString(R.string.narration3));
-        mResult3.setNarrationResId(R.drawable.narration_happy);
-        mResult4.setNarration(context.getString(R.string.narration4));
-        mResult4.setNarrationResId(R.drawable.narration_so_happy);
     }
 
     private Lesson(Context context, int lessonNo) {

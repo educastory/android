@@ -1,6 +1,8 @@
 package educa.educastory;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -22,53 +24,71 @@ public class VolleyHelper {
     private static RequestQueue sQueue;
     private static final Object sLock = new Object();
 
+    private Context mContext;
+
     public static VolleyHelper createInstance(Context context) {
         synchronized (sLock) {
             if (sQueue == null) {
                 sQueue = Volley.newRequestQueue(context);
             }
         }
-        return new VolleyHelper();
+        return new VolleyHelper(context);
     }
 
-    private VolleyHelper() {
-        /* nop */
+    private VolleyHelper(Context context) {
+        mContext = context;
     }
 
     public void requestHeaders(final HeadersCallback callback) {
-        String url = Const.BASE_URL + "/lessons.json";
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        final String url = Const.BASE_URL + "/lessons.json";
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(final JSONArray response) {
                 Log.d(TAG, "response = " + response);
-                ArrayList<Header> lessons = new ArrayList<>();
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        /* think about last extra comma */
-                        if (response.isNull(i)) {
-                            continue;
-                        }
-                        JSONObject json = response.getJSONObject(i);
-                        Header lesson = new Header();
-                        lesson.setNo(json.getInt("no"));
-                        lesson.setTitle(json.getString("title"));
-                        Log.d(TAG, "add lesson " + lesson.getTitle());
-                        lessons.add(lesson);
-                    } catch (JSONException e) {
-                        Log.w(TAG, "json parse error", e);
-                        continue;
-                    }
-                }
-                callback.execute(lessons);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(url, response.toString());
+                editor.commit();
+                requestHeadersFinish(callback, response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "volley error", error);
+                String json = preferences.getString(url, "");
+                try {
+                    JSONArray response = new JSONArray(json);
+                    requestHeadersFinish(callback, response);
+                    Log.w(TAG, "volley error", error);
+                } catch (JSONException e) {
+                    Log.e(TAG, "volley error", error);
+                    callback.execute(null);
+                }
             }
         });
         request.setShouldCache(false);
         sQueue.add(request);
+    }
+
+    private void requestHeadersFinish(HeadersCallback callback, JSONArray response) {
+        ArrayList<Header> headers = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            try {
+                        /* think about last extra comma */
+                if (response.isNull(i)) {
+                    continue;
+                }
+                JSONObject json = response.getJSONObject(i);
+                Header header = new Header();
+                header.setNo(json.getInt("no"));
+                header.setTitle(json.getString("title"));
+                Log.d(TAG, "add header " + header.getTitle());
+                headers.add(header);
+            } catch (JSONException e) {
+                Log.w(TAG, "json parse error", e);
+                continue;
+            }
+        }
+        callback.execute(headers);
     }
 
     public void requestLesson(int lessonNo, final LessonCallback callback) {

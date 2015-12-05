@@ -25,7 +25,7 @@ public class HeaderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_title);
+        setContentView(R.layout.activity_header);
 
         mHeaderList = (ListView) findViewById(R.id.header_list);
         mHeaderList.setEmptyView(findViewById(R.id.empty_text));

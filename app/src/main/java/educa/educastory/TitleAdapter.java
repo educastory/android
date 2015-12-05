@@ -41,7 +41,7 @@ public class TitleAdapter extends ArrayAdapter<Lesson> {
         holder.noText.setText("Lesson " + lesson.getNo());
         holder.titleText.setText(lesson.getTitle());
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        boolean isUnloaded = lesson.getNo() != 1 && !preferences.contains(Integer.toString(lesson.getNo()));
+        boolean isUnloaded = !preferences.contains(Integer.toString(lesson.getNo()));
         holder.unloadText.setVisibility(isUnloaded ? View.VISIBLE : View.GONE);
         return convertView;
     }

@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import educa.educastory.data.Lesson;
+import educa.educastory.data.Title;
 
 public class VolleyHelper {
     private static final String TAG = VolleyHelper.class.getName();
@@ -35,13 +35,13 @@ public class VolleyHelper {
         /* nop */
     }
 
-    public void requestTitles(final LessonsCallback callback) {
+    public void requestTitles(final TitlesCallback callback) {
         String url = Const.BASE_URL + "/lessons.json";
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(final JSONArray response) {
                 Log.d(TAG, "response = " + response);
-                ArrayList<Lesson> lessons = new ArrayList<>();
+                ArrayList<Title> lessons = new ArrayList<>();
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         /* think about last extra comma */
@@ -49,10 +49,10 @@ public class VolleyHelper {
                             continue;
                         }
                         JSONObject json = response.getJSONObject(i);
-                        Lesson lesson = new Lesson();
+                        Title lesson = new Title();
                         lesson.setNo(json.getInt("no"));
-                        lesson.setTitle(json.getString("title"));
-                        Log.d(TAG, "add lesson " + lesson.getTitle());
+                        lesson.setText(json.getString("title"));
+                        Log.d(TAG, "add lesson " + lesson.getText());
                         lessons.add(lesson);
                     } catch (JSONException e) {
                         Log.w(TAG, "json parse error", e);

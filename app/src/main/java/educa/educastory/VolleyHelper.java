@@ -40,11 +40,15 @@ public class VolleyHelper {
     }
 
     public void requestHeaders(final HeadersCallback callback) {
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         final String url = Const.BASE_URL + "/lessons.json";
+        if (!Decision.isConnected(mContext)) {
+            requestHeadersFailure(callback, url, null);
+            return;
+        }
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(final JSONArray response) {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
                 Log.d(TAG, "response = " + response);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString(url, response.toString());
@@ -54,19 +58,24 @@ public class VolleyHelper {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String json = preferences.getString(url, "");
-                try {
-                    JSONArray response = new JSONArray(json);
-                    requestHeadersFinish(callback, response);
-                    Log.w(TAG, "volley error", error);
-                } catch (JSONException e) {
-                    Log.e(TAG, "volley error", error);
-                    callback.execute(null);
-                }
+                requestHeadersFailure(callback, url, error);
             }
         });
         request.setShouldCache(false);
         sQueue.add(request);
+    }
+
+    private void requestHeadersFailure(HeadersCallback callback, String url, VolleyError error) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String json = preferences.getString(url, "");
+        try {
+            JSONArray response = new JSONArray(json);
+            requestHeadersFinish(callback, response);
+            Log.w(TAG, "volley error", error);
+        } catch (JSONException e) {
+            Log.e(TAG, "volley error", error);
+            callback.execute(null);
+        }
     }
 
     private void requestHeadersFinish(HeadersCallback callback, JSONArray response) {

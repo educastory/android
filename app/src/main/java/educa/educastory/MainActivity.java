@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
                 mScore += (answer == 1 ? 1 : 0);
                 break;
             case 5:
-                mScore += (answer == 1 ? 0 : 2);
+                mScore += (answer == 1 ? 2 : 0);
                 break;
         }
         mAnswer = answer;

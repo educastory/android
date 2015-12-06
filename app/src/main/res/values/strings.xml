@@ -3,4 +3,5 @@
     <string name="choice">Choice</string>
     <string name="lesson_no">Lesson %1$d</string>
     <string name="no_lessons_are_found">No lessons are found.</string>
+    <string name="reload_lessons">reload lessons</string>
 </resources>

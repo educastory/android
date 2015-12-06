@@ -3,6 +3,7 @@ package educa.educastory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -16,6 +17,7 @@ import icepick.Icicle;
 
 public class HeaderActivity extends AppCompatActivity {
     private static final int RC_HEADER = 1001;
+    private static final String NEED_RELOAD = "NEED_RELOAD";
 
     private ListView mHeaderList;
 
@@ -53,6 +55,12 @@ public class HeaderActivity extends AppCompatActivity {
             adapter.add(header);
         }
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.header, menu);
+        return true;
     }
 
     @Override

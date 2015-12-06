@@ -1,7 +1,12 @@
 package educa.educastory;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
@@ -42,11 +47,13 @@ public class HeaderActivity extends AppCompatActivity {
                 public void execute(List<Header> headers) {
                     mHeaders = new ArrayList<>(headers);
                     refreshListView(adapter);
+                    reloadLessonsIfNeed();
                 }
             });
         } else {
             Icepick.restoreInstanceState(this, savedInstanceState);
             refreshListView(adapter);
+            reloadLessonsIfNeed();
         }
     }
 
@@ -55,6 +62,60 @@ public class HeaderActivity extends AppCompatActivity {
             adapter.add(header);
         }
         adapter.notifyDataSetChanged();
+    }
+
+    private void reloadLessonsIfNeed() {
+        if (!Decision.isConnected(this)) {
+            return;
+        }
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        if (!preferences.getBoolean(NEED_RELOAD, true)) {
+            return;
+        }
+        new DialogFragment() {
+            @Override
+            public Dialog onCreateDialog(Bundle savedInstanceState) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage(getString(R.string.confirm_load_lessons))
+                        .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                reloadLessons();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                /* NOP */
+                            }
+                        });
+                return builder.create();
+            }
+        }.show(getSupportFragmentManager(), null);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(NEED_RELOAD, false);
+        editor.commit();
+    }
+
+    private void reloadLessons() {
+        VolleyHelper helper = VolleyHelper.createInstance(this);
+        helper.requestHeaders(new HeadersCallback() {
+            @Override
+            public void execute(List<Header> headers) {
+                for(Header header : headers) {
+                    reloadLesson(header);
+                }
+            }
+        });
+    }
+
+    private void reloadLesson(Header header) {
+        String lessonNo = Integer.toString(header.getNo());
+        VolleyHelper.createInstance(HeaderActivity.this).requestLesson(lessonNo, new LessonCallback() {
+            @Override
+            public void execute(byte[] data) {
+                HeaderAdapter adapter = (HeaderAdapter) mHeaderList.getAdapter();
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override

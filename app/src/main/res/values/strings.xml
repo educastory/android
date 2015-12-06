@@ -4,4 +4,7 @@
     <string name="lesson_no">Lesson %1$d</string>
     <string name="no_lessons_are_found">No lessons are found.</string>
     <string name="reload_lessons">reload lessons</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="confirm_load_lessons">Do you want to load all lessons in this phone in advance?</string>
 </resources>

@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
                 mLessonText.setLines(10);
                 break;
             case 1:
-                mLessonImage.setImageBitmap(createBitmap(conversation1.getQuestionImage(), conversation1.getQuestionResId()));
+                mLessonImage.setImageBitmap(createBitmap(conversation1.getQuestionImage()));
                 mLessonText.setText(conversation1.getQuestion());
                 mLessonText.setLines(5);
                 break;
@@ -96,15 +96,15 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
                 break;
             case 3:
                 if (mAnswer == 1) {
-                    mLessonImage.setImageBitmap(createBitmap(conversation1.getReaction1Image(), conversation1.getReaction1ResId()));
+                    mLessonImage.setImageBitmap(createBitmap(conversation1.getReaction1Image()));
                     mLessonText.setText(conversation1.getReaction1());
                 } else {
-                    mLessonImage.setImageBitmap(createBitmap(conversation1.getReaction2Image(), conversation1.getReaction2ResId()));
+                    mLessonImage.setImageBitmap(createBitmap(conversation1.getReaction2Image()));
                     mLessonText.setText(conversation1.getReaction2());
                 }
                 break;
             case 4:
-                mLessonImage.setImageBitmap(createBitmap(conversation2.getQuestionImage(), conversation2.getQuestionResId()));
+                mLessonImage.setImageBitmap(createBitmap(conversation2.getQuestionImage()));
                 mLessonText.setText(conversation2.getQuestion());
                 break;
             case 5:
@@ -114,35 +114,35 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
             case 6:
                 switch (mAnswer) {
                     case 1:
-                        mLessonImage.setImageBitmap(createBitmap(conversation2.getReaction1Image(), conversation2.getReaction1ResId()));
+                        mLessonImage.setImageBitmap(createBitmap(conversation2.getReaction1Image()));
                         mLessonText.setText(conversation2.getReaction1());
                         break;
                     default:
-                        mLessonImage.setImageBitmap(createBitmap(conversation2.getReaction2Image(), conversation2.getReaction2ResId()));
+                        mLessonImage.setImageBitmap(createBitmap(conversation2.getReaction2Image()));
                         mLessonText.setText(conversation2.getReaction2());
                         break;
                 }
                 break;
             case 7:
                 mLessonText.setText(mLesson.getLastMessage());
-                mLessonImage.setImageBitmap(createBitmap(mLesson.getLastMessageImage(), mLesson.getLastMessageResId()));
+                mLessonImage.setImageBitmap(createBitmap(mLesson.getLastMessageImage()));
                 break;
             case 8:
                 switch (mScore) {
                     case 0:
-                        mLessonImage.setImageBitmap(createBitmap(result1.getNarrationImage(), result1.getNarrationResId()));
+                        mLessonImage.setImageBitmap(createBitmap(result1.getNarrationImage()));
                         mLessonText.setText(result1.getNarration());
                         break;
                     case 1:
-                        mLessonImage.setImageBitmap(createBitmap(result2.getNarrationImage(), result2.getNarrationResId()));
+                        mLessonImage.setImageBitmap(createBitmap(result2.getNarrationImage()));
                         mLessonText.setText(result2.getNarration());
                         break;
                     case 2:
-                        mLessonImage.setImageBitmap(createBitmap(result3.getNarrationImage(), result3.getNarrationResId()));
+                        mLessonImage.setImageBitmap(createBitmap(result3.getNarrationImage()));
                         mLessonText.setText(result3.getNarration());
                         break;
                     default:
-                        mLessonImage.setImageBitmap(createBitmap(result4.getNarrationImage(), result4.getNarrationResId()));
+                        mLessonImage.setImageBitmap(createBitmap(result4.getNarrationImage()));
                         mLessonText.setText(result4.getNarration());
                         break;
                 }
@@ -153,12 +153,8 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
         }
     }
 
-    private Bitmap createBitmap(byte[] data, int resId) {
-        if (data != null) {
-            return BitmapFactory.decodeByteArray(data, 0, data.length);
-        } else {
-            return BitmapFactory.decodeResource(getResources(), resId);
-        }
+    private Bitmap createBitmap(byte[] data) {
+        return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
 
     @Override

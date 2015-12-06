@@ -8,16 +8,12 @@ import java.io.Serializable;
 public class Conversation implements Serializable {
     private String mQuestion;
     private byte[] mQuestionImage;
-    private int mQuestionResId;
     private String mAnswer1;
     private String mAnswer2;
     private String mReaction1;
     private byte[] mReaction1Image;
-    private int mReaction1ResId;
     private String mReaction2;
     private byte[] mReaction2Image;
-    private int mReaction2ResId;
-    private int mScore;
 
     public String getQuestion() {
         return mQuestion;
@@ -33,14 +29,6 @@ public class Conversation implements Serializable {
 
     public void setQuestionImage(byte[] questionImage) {
         this.mQuestionImage = questionImage;
-    }
-
-    public int getQuestionResId() {
-        return mQuestionResId;
-    }
-
-    public void setQuestionResId(int questionResId) {
-        mQuestionResId = questionResId;
     }
 
     public String getAnswer1() {
@@ -75,14 +63,6 @@ public class Conversation implements Serializable {
         this.mReaction1Image = reaction1Image;
     }
 
-    public int getReaction1ResId() {
-        return this.mReaction1ResId;
-    }
-
-    public void setReaction1ResId(int reaction1ResId) {
-        this.mReaction1ResId = reaction1ResId;
-    }
-
     public String getReaction2() {
         return mReaction2;
     }
@@ -97,21 +77,5 @@ public class Conversation implements Serializable {
 
     public void setReaction2Image(byte[] reaction2Image) {
         this.mReaction2Image = reaction2Image;
-    }
-
-    public int getReaction2ResId() {
-        return this.mReaction2ResId;
-    }
-
-    public void setReaction2ResId(int reaction2ResId) {
-        this.mReaction2ResId = reaction2ResId;
-    }
-
-    public int getScore() {
-        return mScore;
-    }
-
-    public void setScore(int mScore) {
-        this.mScore = mScore;
     }
 }

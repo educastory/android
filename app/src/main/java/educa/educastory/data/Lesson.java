@@ -19,14 +19,12 @@ import java.util.zip.ZipInputStream;
 public class Lesson implements Serializable {
     private static final String TAG = Lesson.class.getName();
 
-    private int mNo;
     private String mTitle;
     private String mFirstNarration;
     private Conversation mConversation1 = new Conversation();
     private Conversation mConversation2 = new Conversation();
     private String mLastMessage;
     private byte[] mLastMessageImage;
-    private int mLastMessageResId;
     private Result mResult1 = new Result();
     private Result mResult2 = new Result();
     private Result mResult3 = new Result();
@@ -41,7 +39,6 @@ public class Lesson implements Serializable {
     }
 
     private Lesson(Context context, int lessonNo) {
-        mNo = lessonNo;
         String key = Integer.toString(lessonNo);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         byte[] data = Base64.decode(preferences.getString(key, ""), Base64.DEFAULT);
@@ -139,99 +136,43 @@ public class Lesson implements Serializable {
         return baos.toByteArray();
     }
 
-    public int getNo() {
-        return mNo;
-    }
-
-    public void setNo(int no) {
-        this.mNo = no;
-    }
-
     public String getTitle() {
         return mTitle;
-    }
-
-    public void setTitle(String title) {
-        this.mTitle = title;
     }
 
     public String getFirstNarration() {
         return mFirstNarration;
     }
 
-    public void setFirstNarration(String firstNarration) {
-        this.mFirstNarration = firstNarration;
-    }
-
     public Conversation getConversation1() {
         return mConversation1;
-    }
-
-    public void setConversation1(Conversation conversation1) {
-        this.mConversation1 = conversation1;
     }
 
     public Conversation getConversation2() {
         return mConversation2;
     }
 
-    public void setConversation2(Conversation conversation2) {
-        this.mConversation2 = conversation2;
-    }
-
     public String getLastMessage() {
         return mLastMessage;
-    }
-
-    public void setLastMessage(String lastMessage) {
-        this.mLastMessage = lastMessage;
     }
 
     public byte[] getLastMessageImage() {
         return mLastMessageImage;
     }
 
-    public void setLastMessageImage(byte[] lastMessageImage) {
-        this.mLastMessageImage = lastMessageImage;
-    }
-
-    public int getLastMessageResId() {
-        return mLastMessageResId;
-    }
-
-    public void setLastMessageResId(int lastMessageResId) {
-        this.mLastMessageResId = lastMessageResId;
-    }
-
     public Result getResult1() {
         return mResult1;
-    }
-
-    public void setResult1(Result result1) {
-        this.mResult1 = result1;
     }
 
     public Result getResult2() {
         return mResult2;
     }
 
-    public void setResult2(Result result2) {
-        this.mResult2 = result2;
-    }
-
     public Result getResult3() {
         return mResult3;
     }
 
-    public void setResult3(Result result3) {
-        this.mResult3 = result3;
-    }
-
     public Result getResult4() {
         return mResult4;
-    }
-
-    public void setResult4(Result result4) {
-        this.mResult4 = result4;
     }
 }

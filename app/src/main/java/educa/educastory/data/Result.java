@@ -8,7 +8,6 @@ import java.io.Serializable;
 public class Result implements Serializable {
     private String mNarration;
     private byte[] mNarrationImage;
-    private int mNarrationResId;
 
     public String getNarration() {
         return mNarration;
@@ -24,13 +23,5 @@ public class Result implements Serializable {
 
     public void setNarrationImage(byte[] narrationImage) {
         this.mNarrationImage = narrationImage;
-    }
-
-    public int getNarrationResId() {
-        return mNarrationResId;
-    }
-
-    public void setNarrationResId(int narrationResId) {
-        this.mNarrationResId = narrationResId;
     }
 }

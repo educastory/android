@@ -52,10 +52,17 @@ public class AnswerDialogFragment extends DialogFragment {
         TextView answer2Text = (TextView) content.findViewById(R.id.answer2_text);
         builder.setView(content);
 
-        answer1Text.setText(answer1);
-        answer1Text.setOnClickListener(new Answer1ClickListener());
-        answer2Text.setText(answer2);
-        answer2Text.setOnClickListener(new Answer2ClickListener());
+        if (Math.random() < 0.5) {
+            answer1Text.setText(answer1);
+            answer1Text.setOnClickListener(new Answer1ClickListener());
+            answer2Text.setText(answer2);
+            answer2Text.setOnClickListener(new Answer2ClickListener());
+        } else {
+            answer1Text.setText(answer2);
+            answer1Text.setOnClickListener(new Answer2ClickListener());
+            answer2Text.setText(answer1);
+            answer2Text.setOnClickListener(new Answer1ClickListener());
+        }
 
         this.setCancelable(false);
         return builder.create();

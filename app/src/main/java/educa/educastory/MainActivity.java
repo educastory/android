@@ -19,7 +19,7 @@ import icepick.Icicle;
 
 public class MainActivity extends AppCompatActivity implements AnswerDialogFragment.OnChoiceListener {
     private static final String TAG = MainActivity.class.getName();
-    private static final String KEY_LESSON_NO = "LESSON_NO";
+    private static final String KEY_ZIP_DATA = "ZIP_DATA";
 
     private ImageView mLessonImage;
     private TextView mLessonText;
@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
     @Icicle
     int mAnswer;
 
-    public static Intent createIntent(Context context, int lessonNo) {
+    public static Intent createIntent(Context context, byte[] zipData) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra(KEY_LESSON_NO, lessonNo);
+        intent.putExtra(KEY_ZIP_DATA, zipData);
         return intent;
     }
 
@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements AnswerDialogFragm
 
         if (savedInstanceState == null) {
             Intent intent = getIntent();
-            int lessonNo = intent.getIntExtra(KEY_LESSON_NO, 1);
-            mLesson = Lesson.createLesson(this, lessonNo);
+            byte[] zipData = intent.getByteArrayExtra(KEY_ZIP_DATA);
+            mLesson = Lesson.createLesson(zipData);
             mMode = 0;
             mScore = 0;
             mAnswer = 0;

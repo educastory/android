@@ -145,12 +145,12 @@ public class HeaderActivity extends AppCompatActivity {
     private class HeaderClickListener implements android.widget.AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            final Header header = (Header) parent.getItemAtPosition(position);
-            final Intent intent = MainActivity.createIntent(HeaderActivity.this, header.getNo());
-            final String lessonNo = Integer.toString(header.getNo());
+            Header header = (Header) parent.getItemAtPosition(position);
+            String lessonNo = Integer.toString(header.getNo());
             VolleyHelper.createInstance(HeaderActivity.this).requestLesson(lessonNo, new LessonCallback() {
                 @Override
                 public void execute(byte[] data) {
+                    Intent intent = MainActivity.createIntent(HeaderActivity.this, data);
                     startActivityForResult(intent, RC_HEADER);
                 }
             });

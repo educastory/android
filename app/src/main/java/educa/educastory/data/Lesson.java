@@ -1,9 +1,5 @@
 package educa.educastory.data;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Base64;
 import android.util.Log;
 
 import java.io.ByteArrayInputStream;
@@ -30,19 +26,16 @@ public class Lesson implements Serializable {
     private Result mResult3 = new Result();
     private Result mResult4 = new Result();
 
-    public static Lesson createLesson(Context context, int lessonNo) {
-        return new Lesson(context, lessonNo);
+    public static Lesson createLesson(byte[] zipData) {
+        return new Lesson(zipData);
     }
 
     public Lesson() {
         /* nop */
     }
 
-    private Lesson(Context context, int lessonNo) {
-        String key = Integer.toString(lessonNo);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        byte[] data = Base64.decode(preferences.getString(key, ""), Base64.DEFAULT);
-        ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(data));
+    private Lesson(byte[] zipData) {
+        ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(zipData));
         try {
             do {
                 ZipEntry ze = zis.getNextEntry();
